@@ -1,0 +1,83 @@
+import type { Metadata } from "next";
+import { Outfit } from "next/font/google";
+import "./globals.css";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { MobileHeader } from "@/components/layout/MobileHeader";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { SoundProvider } from "@/context/SoundContext";
+import { HoverSoundProvider } from "@/components/providers/HoverSoundProvider";
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Alexander Tolosa | Front-End Developer",
+  description:
+    "Explore Alexander Tolosa's developer portfolio showcasing premium full-stack web applications, robust backends, and responsive user experiences.",
+  keywords: [
+    "Alexander Tolosa",
+    "Software Engineer",
+    "Front-End Developer",
+    "Iloilo Philippines",
+    "Portfolio",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/icon.png?v=2", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+    apple: "/apple-touch-icon.png?v=2",
+  },
+};
+
+const themeScript = `
+  (function() {
+    try {
+      var mode = localStorage.getItem('theme-mode') || localStorage.getItem('theme');
+      var active = 'dark';
+      if (mode === 'light') {
+        active = 'light';
+      } else if (mode === 'system') {
+        active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(active);
+    } catch (e) {}
+  })();
+`;
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${outfit.variable} scroll-smooth dark`} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="bg-brand-dark text-foreground min-h-screen selection:bg-black/20 dark:selection:bg-white/20 antialiased transition-colors duration-300" suppressHydrationWarning>
+        <ThemeProvider>
+          <SoundProvider>
+            <HoverSoundProvider>
+              <Sidebar />
+              <MobileHeader />
+              <main className="relative min-h-screen lg:pl-[260px]">{children}</main>
+            </HoverSoundProvider>
+          </SoundProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

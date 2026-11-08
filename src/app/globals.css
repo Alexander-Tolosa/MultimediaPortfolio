@@ -1,0 +1,380 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Custom Color Gradients */
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-card: var(--brand-card);
+  --color-brand-border: var(--brand-border);
+  --color-brand-text-muted: var(--brand-text-muted);
+
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-indigo: var(--accent-indigo);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-emerald: var(--accent-emerald);
+
+  /* Animations */
+  --animate-glow: glow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-gradient-x: gradient-x 6s ease infinite;
+
+  @keyframes glow {
+
+    0%,
+    100% {
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
+    }
+
+    50% {
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes float-delayed {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(10px);
+    }
+  }
+
+  @keyframes gradient-x {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+  --background: #030712;
+  --foreground: #f3f4f6;
+  --brand-dark: #030712;
+  --brand-card: #0b0f19;
+  --brand-border: #1f2937;
+  --brand-text-muted: #9ca3af;
+
+  --accent-blue: #ffffff;
+  --accent-indigo: #e4e4e7;
+  --accent-purple: #a1a1aa;
+  --accent-cyan: #d4d4d8;
+  --accent-emerald: #f4f4f5;
+  --sidebar-accent: #fbbf24;
+
+  --glass-bg: rgba(11, 15, 25, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover-bg: rgba(11, 15, 25, 0.85);
+  --glass-hover-border: rgba(255, 255, 255, 0.25);
+  --glass-hover-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.15), 0 0 15px -3px rgba(255, 255, 255, 0.08);
+
+  --text-gradient-start: #ffffff;
+  --text-gradient-mid: #d4d4d8;
+  --text-gradient-end: #9ca3af;
+
+  --shine-from: #71717a;
+  --shine-via: #e4e4e7;
+  --shine-to: #ffffff;
+
+  --grid-line-color: rgba(255, 255, 255, 0.03);
+  --scrollbar-track: #030712;
+  --scrollbar-thumb: #1f2937;
+  --scrollbar-thumb-hover: #374151;
+
+  --orb-bg-primary: rgba(255, 255, 255, 0.08);
+  --orb-bg-secondary: rgba(255, 255, 255, 0.05);
+
+  scroll-behavior: smooth;
+}
+
+html.light,
+.light {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #09090b;
+  --brand-dark: #ffffff;
+  --brand-card: #ffffff;
+  --brand-border: #e4e4e7;
+  --brand-text-muted: #52525b;
+
+  --accent-blue: #2563eb;
+  --accent-indigo: #4f46e5;
+  --accent-purple: #7c3aed;
+  --accent-cyan: #0284c7;
+  --accent-emerald: #059669;
+  --sidebar-accent: #d97706;
+
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-hover-bg: rgba(255, 255, 255, 0.98);
+  --glass-hover-border: rgba(0, 0, 0, 0.16);
+  --glass-hover-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07), 0 0 15px -3px rgba(0, 0, 0, 0.03);
+
+  --text-gradient-start: #09090b;
+  --text-gradient-mid: #27272a;
+  --text-gradient-end: #52525b;
+
+  --shine-from: #52525b;
+  --shine-via: #18181b;
+  --shine-to: #27272a;
+
+  --grid-line-color: rgba(0, 0, 0, 0.04);
+  --scrollbar-track: #f4f4f5;
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-thumb-hover: #a1a1aa;
+
+  --orb-bg-primary: rgba(79, 70, 229, 0.04);
+  --orb-bg-secondary: rgba(59, 130, 246, 0.03);
+}
+
+/* Smooth site-wide theme color transitions for layout containers */
+body,
+header,
+footer,
+main,
+section,
+nav,
+aside {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable individual element transitions during View Transitions so clip-path snapshot is crisp & instantaneous */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
+}
+
+/* View Transitions styling for ultra-smooth circular reveal */
+::view-transition-group(root) {
+  animation-duration: 0.55s;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* Infinite Seamless Marquee Slider Animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-scroll-reverse 28s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Custom Text Highlight Selection Styles */
+::selection {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+html.dark ::selection,
+.dark ::selection {
+  background-color: #f4f4f5;
+  color: #09090b;
+}
+
+html.light ::selection,
+.light ::selection {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Glassmorphism utility helpers */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hover:hover {
+  background: var(--glass-hover-bg);
+  border-color: var(--glass-hover-border);
+  box-shadow: var(--glass-hover-shadow);
+  transform: translateY(-4px);
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--text-gradient-start) 0%, var(--text-gradient-mid) 50%, var(--text-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cyan-emerald {
+  background: linear-gradient(135deg, var(--text-gradient-start) 0%, var(--text-gradient-mid) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+@keyframes grid-drift {
+  0% {
+    background-position: 0px 0px;
+  }
+
+  100% {
+    background-position: 64px 64px;
+  }
+}
+
+.animated-grid {
+  animation: grid-drift 3s linear infinite;
+  background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+}
+
+@keyframes text-shine {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.text-shine {
+  background: linear-gradient(110deg,
+      var(--shine-from) 35%,
+      var(--shine-via) 46%,
+      var(--shine-to) 50%,
+      var(--shine-via) 54%,
+      var(--shine-from) 65%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shine 5s linear infinite;
+}
+
+@keyframes letter-bounce {
+
+  0%,
+  100% {
+    top: 0;
+  }
+
+  50% {
+    top: -6px;
+  }
+}
